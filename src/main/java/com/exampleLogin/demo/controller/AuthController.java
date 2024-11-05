@@ -32,7 +32,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserDto userDto) {
-        UserDetails userDetails = userService.loadUserByUsername(userDto.getUsername()); // Cambié aquí a UserDetails
+        UserDetails userDetails = userService.loadUserByUsername(userDto.getUsername());
         if (userDetails != null && passwordEncoder.matches(userDto.getPassword(), userDetails.getPassword())) {
             String token = jwtUtil.generateToken(userDetails.getUsername());
             return ResponseEntity.ok(token);
@@ -42,7 +42,7 @@ public class AuthController {
 
 
         @GetMapping("/resource")
-        @PreAuthorize("hasRole('USER')") // Asegúrate de tener roles configurados si usas @PreAuthorize
+        @PreAuthorize("hasRole('USER')")
         public ResponseEntity<String> getProtectedResource() {
             return ResponseEntity.ok("Este es un recurso protegido!");
         }
